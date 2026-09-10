@@ -186,6 +186,7 @@ final class SessionLogRecordProcessorTests: XCTestCase {
   func testForceFlushExportsRecordsQueuedInWrappedBatchProcessor() {
     let exporter = InMemoryLogRecordExporter()
     let (provider, session) = makeBatchingProvider(exporter: exporter)
+    defer { _ = session.shutdown(explicitTimeout: nil) }
 
     provider.get(instrumentationScopeName: "test")
       .logRecordBuilder()
